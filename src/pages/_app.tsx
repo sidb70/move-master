@@ -1,7 +1,7 @@
 import type {AppProps} from 'next/app'
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
-import styled, {DefaultTheme, ThemeProvider} from "styled-components";
+import {DefaultTheme, ThemeProvider} from "styled-components";
 
 const theme: DefaultTheme = {
     colors: {
@@ -12,7 +12,7 @@ const theme: DefaultTheme = {
         accent: '#35AAF2',
     },
     text: {
-        primary: 'white',
+        primary: "#ffffff",
         highlight: "#0075e0",
         secondary: "#40a9ff"
     }
@@ -27,9 +27,7 @@ const content = "Unlock the full potential of your fitness journey with our inno
 export default function App({Component, pageProps}: AppProps) {
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
-        <Container>
-            <Component {...pageProps} />
-        </Container>
+        <Component {...pageProps} />
     </ThemeProvider>
 }
 
@@ -47,8 +45,3 @@ const WebsiteInfo = () => {
         <GlobalStyle/>
     </>
 }
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-`
