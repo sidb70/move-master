@@ -28,7 +28,7 @@ export default function App({Component, pageProps}: AppProps) {
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
         <Container>
-            <Component {...pageProps} />
+            <Component  {...pageProps} />
         </Container>
     </ThemeProvider>
 }
@@ -48,7 +48,9 @@ const WebsiteInfo = () => {
     </>
 }
 
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
 `

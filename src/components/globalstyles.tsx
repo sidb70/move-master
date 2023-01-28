@@ -4,6 +4,8 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
   html, body {
     margin: 0;
 
+    font-family: 'Source Sans Pro', sans-serif;
+
     --scroll-behavior: smooth !important;
     scroll-behavior: smooth !important;
 
@@ -12,6 +14,7 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
 
     --scrollbarBG: ${({theme}) => theme.colors.background};
     --thumbBG: #90A4AE;
+
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   }
@@ -35,9 +38,14 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     user-select: none;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    color: white;
+  }
+
+
   h1 {
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 2.5rem;
+    font-weight: bold;
   }
 
   h2 {
@@ -50,6 +58,7 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     font-weight: lighter;
     line-height: 2;
     letter-spacing: .05rem;
+    color: #e6e9ed;
   }
 
   a {
@@ -68,7 +77,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     -o-user-drag: none;
     user-drag: none;
   }
-
 `
 
 
