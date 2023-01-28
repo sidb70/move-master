@@ -1,4 +1,3 @@
-
 import type {AppProps} from 'next/app'
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
@@ -19,7 +18,11 @@ const theme: DefaultTheme = {
     }
 }
 
-const content = "Website Description!"
+const content = "Unlock the full potential of your fitness journey with our innovative app. " +
+    "Not only will it analyze your 3D pose to give you real-time feedback on your form and technique, " +
+    "but it will also generate a customized workout plan tailored to your needs. Track your progress with our user states page, " +
+    "featuring a body heat map and recovery percentages, and stay motivated with our built-in streak tracker. " +
+    "Get in the best shape of your life with our cutting-edge technology and personalized approach to fitness."
 
 export default function App({Component, pageProps}: AppProps) {
     return <ThemeProvider theme={theme}>
