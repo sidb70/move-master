@@ -59,4 +59,4 @@ const signIn = ( email, password ) => {
  };
 
 
-export default { user, signUp, signIn };
+export { user, signUp, signIn };
