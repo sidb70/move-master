@@ -26,12 +26,14 @@ const content = "Unlock the full potential of your fitness journey with our inno
     "Get in the best shape of your life with our cutting-edge technology and personalized approach to fitness."
 
 export default function App({Component, pageProps}: AppProps) {
-    return <ThemeProvider theme={theme}>
+    return <AuthProvider>
+        <ThemeProvider theme={theme}>
         <WebsiteInfo/>
         <Container>
             <Component {...pageProps} />
         </Container>
     </ThemeProvider>
+    </AuthProvider>
 }
 
 const WebsiteInfo = () => {

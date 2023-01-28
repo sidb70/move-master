@@ -2,20 +2,26 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
-import auth from 'fbase/clientApp'
-import signIn from 'src/hooks/useAuth'
+import { useRouter } from 'next/router';
 
-interface RegistrationData {
+import auth from 'fbase/clientApp'
+import {signIn} from 'src/hooks/useAuth'
+
+const fbauth = auth.auth;
+
+interface LoginData {
     email: string;
     password: string;
     }
-
 const LoginPage: React.FC = () => {
     const { register, handleSubmit, } = useForm({ });
-    const onSubmit = (data: RegistrationData) => {
+    const router = useRouter();
+    const onSubmit = (data: LoginData) => {
         
-        console.log(data);
-    };
+        return fbauth.signInWithEmailAndPassword(data.email,data.password).then(() => {
+         router.push('/');
+        });
+       };
     return (
         <>
             <Link href="/registration">
@@ -23,7 +29,7 @@ const LoginPage: React.FC = () => {
             </Link>
             
 
-            <Form onSubmit={handleSubmit((data) => console.log(data))}>
+            <Form onSubmit={handleSubmit(data => onSubmit(data as any))}>
               <Input placeholder='Email' {...register('email',  { required: true } )} />
               <Input placeholder='Password' {...register('password',  { required: true })} />
               <Input type="submit" />
