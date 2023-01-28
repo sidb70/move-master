@@ -1,3 +1,4 @@
+
 import type {AppProps} from 'next/app'
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
@@ -48,4 +49,3 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
 `
-
