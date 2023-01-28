@@ -37,3 +37,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 process.env.local
+src/pages/login/move-master-firebase-adminsdk-qmc37-8a7a26ef87.json

@@ -1,4 +1,5 @@
 import type {AppProps} from 'next/app'
+import { AuthProvider } from '../hooks/useAuth';
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
 import styled, {DefaultTheme, ThemeProvider} from "styled-components";
@@ -28,7 +29,7 @@ export default function App({Component, pageProps}: AppProps) {
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
         <Container>
-            <Component  {...pageProps} />
+            <Component {...pageProps} />
         </Container>
     </ThemeProvider>
 }
