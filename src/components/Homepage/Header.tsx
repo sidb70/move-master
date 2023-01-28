@@ -1,43 +1,49 @@
 import styled from "styled-components"
 
 export default function Header() {
-    return <Container>
-        <h1>Move Master</h1>
-        <ButtonList>
-            <Button>Sign In</Button>
-            <Button>Sign Up</Button>
-            <Button>Demo</Button>
-        </ButtonList>
-    </Container>
+    return <HeaderContainer>
+        <HeaderTitle>MoveMaster</HeaderTitle>
+        <h2>MoveMaster uses the latest computer vision models to track posture and measure performance for workout</h2>
+        <HeaderButton>Try a Demo</HeaderButton>
+    </HeaderContainer>
 }
 
-const Container = styled.div`
+
+const HeaderContainer = styled.div`
   width: 100%;
-  min-height: 250px;
-  margin-top: 1rem;
+  height: 200px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 2rem;
-
-  & > h1 {
-    font-size: 2rem;
-  }
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+  gap: 5px;
 `
 
-const ButtonList = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  gap: 1rem;
+const HeaderTitle = styled.h1`
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
 `
 
-const Button = styled.button`
-  width: 100px;
-  height: 50px;
-  border: 1px solid black;
+const HeaderButton = styled.button`
+  background: transparent;
+  color: ${({theme}) => theme.colors.accent};
+  border: none;
+  padding: 10px 20px;
   border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 20px;
+
+  &:hover {
+    background: ${({theme}) => theme.colors.accent};
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
 `

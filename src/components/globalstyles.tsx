@@ -77,7 +77,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     -o-user-drag: none;
     user-drag: none;
   }
-
 `
 
 
