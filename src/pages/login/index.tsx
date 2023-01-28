@@ -2,6 +2,9 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
+import auth from 'fbase/clientApp'
+import signIn from 'src/hooks/useAuth'
+
 interface RegistrationData {
     email: string;
     password: string;
@@ -10,6 +13,7 @@ interface RegistrationData {
 const LoginPage: React.FC = () => {
     const { register, handleSubmit, } = useForm({ });
     const onSubmit = (data: RegistrationData) => {
+        
         console.log(data);
     };
     return (
