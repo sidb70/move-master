@@ -1,5 +1,5 @@
 import type {AppProps} from 'next/app'
-import { AuthProvider } from '../hooks/useAuth';
+import {AuthProvider} from '../hooks/useAuth';
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
 import styled, {DefaultTheme, ThemeProvider} from "styled-components";
@@ -26,12 +26,14 @@ const content = "Unlock the full potential of your fitness journey with our inno
     "Get in the best shape of your life with our cutting-edge technology and personalized approach to fitness."
 
 export default function App({Component, pageProps}: AppProps) {
-    return <ThemeProvider theme={theme}>
-        <WebsiteInfo/>
-        <Container>
-            <Component {...pageProps} />
-        </Container>
-    </ThemeProvider>
+    return <AuthProvider>
+        <ThemeProvider theme={theme}>
+            <WebsiteInfo/>
+            <Container>
+                <Component {...pageProps} />
+            </Container>
+        </ThemeProvider>
+    </AuthProvider>
 }
 
 const WebsiteInfo = () => {
