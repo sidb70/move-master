@@ -41,7 +41,28 @@ export class Pushup implements IExercise {
     solver(currentPose: { x: number; y: number; z: number; score: number; name: string; }[]): void {
         this.frameCounter++;
 
+        // grab currentpose 28, 26, 24, 12, 14, 16, 18, 20, 22
+        // print all those angles scores to console, if less than 0.5 then return
+        const confidence_check = 0.7;
+        if (currentPose[28].score < confidence_check || currentPose[26].score < confidence_check || currentPose[24].score < confidence_check || currentPose[12].score < confidence_check || currentPose[14].score < confidence_check || currentPose[16].score < confidence_check) {
+            this.badPose.push("Not enough data");
+            // console.log(
+            //     currentPose[28],
+            //     currentPose[26],
+            //     currentPose[24],
+            //     currentPose[12],
+            //     currentPose[14],
+            //     currentPose[16],
+            // )
+            return;
+        }
+
         const kneeAngle = calculateAngle(currentPose[28], currentPose[26], currentPose[24]);
+        if (currentPose[28].score < 0.5 || currentPose[26].score < 0.5 || currentPose[24].score < 0.5) {
+            this.badPose.push("Knee Angle");
+            return;
+        }
+
         if ((19 * Math.PI / 20) <= kneeAngle && kneeAngle <= (21 * Math.PI / 20)) {
             this.kneeScore = 1;
         } else if (18 * Math.PI / 20 <= kneeAngle && kneeAngle <= 19 * Math.PI / 20) {
@@ -54,6 +75,11 @@ export class Pushup implements IExercise {
 
 
         const hipAngle = calculateAngle(currentPose[26], currentPose[24], currentPose[12]);
+        if (currentPose[26].score < 0.5 || currentPose[24].score < 0.5 || currentPose[12].score < 0.5) {
+            this.badPose.push("Hip Angle");
+            return;
+        }
+
         if (19 * Math.PI / 20 <= hipAngle && hipAngle <= 21 * Math.PI / 20) {
             this.hipScore = 1;
         } else if (18 * Math.PI / 20 <= hipAngle && hipAngle <= 19 * Math.PI / 20) {
@@ -64,12 +90,15 @@ export class Pushup implements IExercise {
             this.hipScore = 0.5;
         }
 
-
         let elbowAngle = calculateAngle(currentPose[12], currentPose[14], currentPose[16]);
+        if (currentPose[12].score < 0.5 || currentPose[14].score < 0.5 || currentPose[16].score < 0.5) {
+            this.badPose.push("Elbow Angle");
+            return;
+        }
+
         if (elbowAngle) {
             //when user starts with the momentum to move up.
-            this.compareValue = 0;
-            if (elbowAngle >= this.compareValue) {
+            if (elbowAngle >= this.compareValue && elbowAngle >= Math.PI * 2 / 3) {
                 this.maxValue = elbowAngle;
                 this.compareValue = elbowAngle;
                 this.pushUpCountValue += this.adder1;
@@ -77,6 +106,7 @@ export class Pushup implements IExercise {
                 this.adder2 = 0.6;
                 if (this.pushUpCountValue >= 1) {
                     this.pushUpCounter += 1;
+                    console.log("push up count: " + this.pushUpCounter);
                     this.pushUpCountValue = 0;
                 }
 
@@ -107,8 +137,7 @@ export class Pushup implements IExercise {
                 }
             }
 
-
-            if (elbowAngle <= this.compareValue) {
+            if (elbowAngle <= this.compareValue && elbowAngle <= Math.PI / 3) {
                 this.minValue = elbowAngle;
                 this.compareValue = elbowAngle;
                 this.pushUpCountValue += this.adder2;
@@ -116,11 +145,11 @@ export class Pushup implements IExercise {
                 this.adder1 = 0.6;
                 if (this.pushUpCountValue >= 1) {
                     this.pushUpCounter += 1;
+                    console.log("push up count: " + this.pushUpCounter);
                     this.pushUpCountValue = 0;
                     console.log("PUSHUP!!!");
                     console.log(this.pushUpCounter);
                 }
-
 
                 // get the elbow score
                 if (19 * Math.PI / 20 <= this.maxValue && this.maxValue <= 21 * Math.PI / 20) {
