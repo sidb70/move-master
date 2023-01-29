@@ -1,6 +1,5 @@
 import {IExercise} from "./exercise";
 import {Pushup} from "@/Exercises/Pushup";
-import {Situp} from "@/Exercises/Situp";
 
 export default interface User {
     initialLoad: boolean;
