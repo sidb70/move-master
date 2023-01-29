@@ -141,6 +141,10 @@ export class Pushup implements IExercise {
                     this.pushUpCountValue = 0;
                     // console.log(this.reps);
                     this.reps += 1;
+
+                    if(this.reps > this.PB){
+                        this.PB = this.reps;
+                    }
                 }
 
                 // get the elbow score

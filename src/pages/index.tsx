@@ -4,26 +4,21 @@ import Navbar from "@/components/Homepage/Navbar";
 import Feature, {IFeature} from '@/components/Homepage/Feature';
 
 const feature1: IFeature = {
-    imageSrc: 'https://dummyimage.com/600x200/000/fff',
+    imageSrc: 'https://cdn.discordapp.com/attachments/1068907821854380052/1069295114503069898/functioning_form.jpg',
     title: 'Form Check',
     description: 'Form Check is a tool that helps you to check your form and get feedback on how to improve it. This is done during the workout with the latest computer vision technology.'
 }
 
-const feature2: IFeature = {
-    imageSrc: 'https://dummyimage.com/600x200/000/fff',
-    title: 'Form Recommendation',
-    description: 'Based on previous feedback, Form Check will recommend you exercises that will help you improve your form. You can also add your own exercises to the database.'
-}
 
 const feature3: IFeature = {
-    imageSrc: 'https://dummyimage.com/600x200/000/fff',
+    imageSrc: 'https://cdn.discordapp.com/attachments/1066383220322615429/1069293333245071410/bodyheat.png',
     title: ' User stats',
     description: 'User stats is a tool that helps you to track your progress. You can see your progress over time and compare it to other users.'
 }
 
 
 export default function Home() {
-    const features: IFeature[] = [feature1, feature2, feature3]
+    const features: IFeature[] = [feature1, feature3]
 
     return <Container>
         <Navbar features={features}/>
