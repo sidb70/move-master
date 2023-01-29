@@ -6,11 +6,13 @@ import ExerciseStats from "./ExerciseStats";
 import ExerciseDescription from "./ExerciseDescription";
 import Controls from "./Controls";
 import ExerciseWarning from "./ExerciseWarning";
+import ExerciseSolver from "@/Exercises/ExerciseSolver";
 
 export default function Tracker() {
     const {user} = useContext(UserContext);
 
     return <Container>
+        <ExerciseSolver/>
         <Vertical>
             <IFrame allowFullScreen src={user.currentExercise!.video}/>
             <ExerciseDescription/>

@@ -30,6 +30,17 @@ export default function Exercise(exercise: IExercise) {
 
     const loadExercise = () => setUser({...user, currentExercise: exercise});
 
+    // load muscle groups into a string
+    const muscleGroups = () => {
+        let groups = '';
+
+        if (exercise.muscles) groups += exercise.muscles
+        if (exercise.muscles_secondary) groups += ' | ' + exercise.muscles_secondary
+        if (exercise.muscles_neutral) groups += ' | ' + exercise.muscles_neutral
+
+        return groups
+    }
+
     return <Container color={color()} onClick={loadExercise}>
         <Header>
             <h3>{exercise.name}</h3>
@@ -38,6 +49,10 @@ export default function Exercise(exercise: IExercise) {
         <Stats>
             <p>Reps: {exercise.reps}</p>
             <p>Sets: {exercise.sets}</p>
+            {exercise.weight != -1 && <p>Weight: {exercise.weight}</p>}
+        </Stats>
+        <Stats>
+            <p>{muscleGroups()} </p>
             {exercise.weight != -1 && <p>Weight: {exercise.weight}</p>}
         </Stats>
     </Container>

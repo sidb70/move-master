@@ -3,12 +3,7 @@ import Image from "next/image"
 
 export default function BodyDiagram() {
     return <Container>
-        <Image
-            alt='Body Diagram'
-            src='/body.png'
-            layout='fill'
-            objectFit='contain'
-        />
+        <img src="/body.png" alt="Body Diagram"/>
         <h1>Body Heatmap (WIP)</h1>
     </Container>
 }
@@ -17,7 +12,6 @@ const Container = styled.div`
   position: relative;
   height: 100%;
   width: 35%;
-
 
   & > h1 {
     text-align: center;

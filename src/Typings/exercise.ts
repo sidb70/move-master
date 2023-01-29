@@ -1,8 +1,10 @@
 export interface IExercise {
+    solver(currentPose: { x: number; y: number; z: number; score: number; name: string; }[]): void;
+
+    formScore: number[];
     id: number;
     name: string;
     description: string;
-    image: string;
     video: string;
     category: string;
     equipment: string;
@@ -15,6 +17,5 @@ export interface IExercise {
     weight: number;
     difficulty: number;
     badPose: string[];
-    time: number;
     PB: number;
 }

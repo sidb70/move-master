@@ -1,5 +1,6 @@
 import {IExercise} from "./exercise";
 import {Pushup} from "@/Exercises/Pushup";
+import {Situp} from "@/Exercises/Situp";
 
 export default interface User {
     initialLoad: boolean;
@@ -15,6 +16,7 @@ export default interface User {
     ExercisesToComplete?: number;
     Exercises: IExercise[];
     currentExercise: IExercise | null;
+    currentPose: { x: number, y: number, z: number, score: number, name: string }[] | null;
 }
 
 export const InitialUser: User = {
@@ -29,6 +31,7 @@ export const InitialUser: User = {
     totalCalories: 0,
     totalWorkouts: 0,
     ExercisesToComplete: 0,
-    Exercises: [new Pushup()],
+    Exercises: [new Pushup(), new Situp()],
     currentExercise: null,
+    currentPose: null
 };

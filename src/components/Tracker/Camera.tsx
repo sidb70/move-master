@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {UserContext} from "@/pages/_app";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef} from "react";
 import Webcam from "react-webcam";
 
 import * as poseDetection from '@tensorflow-models/pose-detection';
@@ -13,33 +13,42 @@ const VIDEO_CONSTRAINTS = {
 };
 
 export default function Camera() {
-    const {user} = useContext(UserContext);
-    const webcamRef = useRef() as React.MutableRefObject<Webcam>;
+    const {user, setUser} = useContext(UserContext);
+    const webcamRef = useRef<Webcam>(null);
 
     const badPose = () => {
-        if (user.currentExercise!.badPose.length > 0)
-            return "red"
-
+        if (user.currentExercise!.badPose.length > 0) return "red"
         return "none"
     }
 
-    // Load The Pose Detection Model
-    async function loadVideo() {
-        const model = poseDetection.SupportedModels.BlazePose;
-        const detector = await poseDetection.createDetector(model, {runtime: 'tfjs'});
+    async function loadVideo(detector: poseDetection.PoseDetector) {
+        if (!webcamRef.current) return;
 
-        const poses = await detector.estimatePoses(webcamRef.current!.video!);
-        console.log(poses);
+        const video = webcamRef.current.video!;
+        video.width = video.videoWidth;
+        video.height = video.videoHeight;
+        if (video.videoWidth === 0 || video.videoHeight === 0) return;
+
+        const poses = await detector.estimatePoses(video);
+        if (poses.length === 0) return;
+        setUser({...user, currentPose: poses[0].keypoints3D || []});
     }
 
     useEffect(() => {
-        if (!webcamRef.current) return;
-        loadVideo();
-    }, [webcamRef.current]);
+        const LoadPoses = async () => {
+            const model = poseDetection.SupportedModels.BlazePose;
+            const detector = await poseDetection.createDetector(model, {
+                runtime: "tfjs",
+                modelType: 'full',
+            });
 
-    return <>
-        <VideoCamera ref={webcamRef} videoConstraints={VIDEO_CONSTRAINTS} color={badPose()}/>
-    </>;
+            return setInterval(async () => await loadVideo(detector), 250);
+        }
+
+        LoadPoses().then(interval => () => clearInterval(interval));
+    }, []);
+
+    return <VideoCamera ref={webcamRef} videoConstraints={VIDEO_CONSTRAINTS} color={badPose()}/>
 }
 
 const VideoCamera = styled(Webcam)<{ color: string }>`

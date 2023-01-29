@@ -3,24 +3,22 @@ import {UserContext} from "@/pages/_app";
 import {useContext} from "react";
 
 export default function Controls() {
-    const {user} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
 
-    const endWorkout = () => {
-        console.log("End Workout");
+    const endExercise = () => setUser({...user, currentExercise: null});
+
+    const nextExercise = () => {
+
     }
 
-    const pause = () => {
-        console.log("Pause");
-    }
+    const prevExercise = () => {
 
-    const start = () => {
-        console.log("Start");
     }
 
     return <Container>
-        <Button onClick={endWorkout}>End Workout</Button>
-        <Button onClick={pause}>Pause</Button>
-        <Button onClick={start}>Start</Button>
+        <Button onClick={prevExercise}>Previous</Button>
+        <Button onClick={endExercise}>End Workout</Button>
+        <Button onClick={nextExercise}>Next</Button>
     </Container>
 }
 
