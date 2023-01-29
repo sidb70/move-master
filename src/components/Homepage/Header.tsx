@@ -1,10 +1,11 @@
+import Link from "next/link"
 import styled from "styled-components"
 
 export default function Header() {
     return <HeaderContainer>
         <HeaderTitle>MoveMaster</HeaderTitle>
         <h2>MoveMaster uses the latest computer vision models to track posture and measure performance for workout</h2>
-        <HeaderButton>Try a Demo</HeaderButton>
+        <HeaderButton href="/demo">Try a Demo</HeaderButton>
     </HeaderContainer>
 }
 
@@ -30,7 +31,7 @@ const HeaderTitle = styled.h1`
   margin-bottom: 20px;
 `
 
-const HeaderButton = styled.button`
+const HeaderButton = styled(Link)`
   background: transparent;
   color: ${({theme}) => theme.colors.accent};
   border: none;

@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import {IFeature} from "@/components/Homepage/Feature";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function Navbar(props: { features: IFeature[] }) {
-    const logo = "https://dummyimage.com/32x32/000/fff"
 
     const smoothScroll = (title: string) => () => {
         const element = document.getElementById(title);
@@ -24,11 +22,6 @@ export default function Navbar(props: { features: IFeature[] }) {
                 <FeatureButton key={index} onClick={smoothScroll(feature.title)}>{feature.title}</FeatureButton>
             ))}
         </FeaturesContainer>
-
-        <AuthContainer>
-            <AuthButton href="/login">Sign In</AuthButton>
-            <AuthButton href="/register">Sign Up</AuthButton>
-        </AuthContainer>
     </Container>
 }
 
@@ -72,27 +65,6 @@ const FeatureButton = styled.button`
 
   &:hover {
     background-color: ${props => props.theme.colors.secondary};
-    color: ${props => props.theme.colors.primary};
-  }
-`;
-
-const AuthContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const AuthButton = styled(Link)`
-  background-color: transparent;
-  border: none;
-  color: ${props => props.theme.text.secondary};
-  font-size: 16px;
-  font-weight: 500;
-  padding: 8px 16px;
-  margin: 0 8px;
-  cursor: pointer;
-
-  &:hover {
     color: ${props => props.theme.colors.primary};
   }
 `;

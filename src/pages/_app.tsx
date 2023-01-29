@@ -1,8 +1,9 @@
 import type {AppProps} from 'next/app'
-import {AuthProvider} from '../hooks/useAuth';
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
 import styled, {DefaultTheme, ThemeProvider} from "styled-components";
+import User, {InitialUser} from '@/Typings/user';
+import {createContext, useState} from 'react';
 
 const theme: DefaultTheme = {
     colors: {
@@ -25,21 +26,25 @@ const content = "Unlock the full potential of your fitness journey with our inno
     "featuring a body heat map and recovery percentages, and stay motivated with our built-in streak tracker. " +
     "Get in the best shape of your life with our cutting-edge technology and personalized approach to fitness."
 
+export const UserContext = createContext({} as { user: User, setUser: any });
+
 export default function App({Component, pageProps}: AppProps) {
-    return <AuthProvider>
-        <ThemeProvider theme={theme}>
-            <WebsiteInfo/>
-            <Container>
+    const [user, setUser] = useState<User>(InitialUser)
+
+    return <ThemeProvider theme={theme}>
+        <WebsiteInfo/>
+        <Container>
+            <UserContext.Provider value={{user, setUser}}>
                 <Component {...pageProps} />
-            </Container>
-        </ThemeProvider>
-    </AuthProvider>
+            </UserContext.Provider>
+        </Container>
+    </ThemeProvider>
 }
 
 const WebsiteInfo = () => {
     return <>
         <Head>
-            <title>Move Master Tracker</title>
+            <title>MoveMaster | Home</title>
             <meta name="description" content={content}/>
             <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
             <link rel="shortcut icon" href="/images/favicon.ico"/>
@@ -50,7 +55,6 @@ const WebsiteInfo = () => {
         <GlobalStyle/>
     </>
 }
-
 
 const Container = styled.div`
   width: 100vw;
