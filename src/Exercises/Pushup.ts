@@ -13,9 +13,9 @@ export class Pushup implements IExercise {
     muscles_secondary = "triceps";
     muscles_neutral = "shoulders";
     is_completed = false;
-    sets = 2;
-    reps = 5;
-    weight = -1;
+    sets = 1;
+    reps=10;
+    weight = 0;
     difficulty = 1;
     badPose: string[] = [];
     PB = 0;
@@ -98,7 +98,7 @@ export class Pushup implements IExercise {
 
         if (elbowAngle) {
             //when user starts with the momentum to move up.
-            if (elbowAngle >= this.compareValue && elbowAngle >= Math.PI * 2 / 3) {
+            if (elbowAngle >= this.compareValue + 0.08) {
                 this.maxValue = elbowAngle;
                 this.compareValue = elbowAngle;
                 this.pushUpCountValue += this.adder1;
@@ -112,12 +112,13 @@ export class Pushup implements IExercise {
 
 
                 // get the elbow score
-                if (0 <= this.maxValue && this.maxValue <= Math.PI / 5) {
+                console.log(this.minValue, ', min value');
+                if (0 <= this.minValue && this.minValue <= Math.PI / 5) {
                     // add elbowScore/2 for when user reach the highest point and lowest point
                     this.elbowScore += 0.5;
-                } else if (Math.PI / 5 <= elbowAngle && elbowAngle <= Math.PI / 4) {
+                } else if (Math.PI / 5 <= this.minValue && this.minValue <= Math.PI / 4) {
                     this.elbowScore += 0.45;
-                } else if (Math.PI / 4 <= elbowAngle && elbowAngle <= 3 * Math.PI / 10) {
+                } else if (Math.PI / 4 <= this.minValue && this.minValue <= 3 * Math.PI / 10) {
                     this.elbowScore += 0.4;
                 } else {
                     this.elbowScore += 0.25;
@@ -130,6 +131,9 @@ export class Pushup implements IExercise {
                 if (this.elbowScore > 0.51) {
                     //cal the avg score
                     let average = (this.kneeScore + this.hipScore + this.elbowScore) / 3
+                    console.log(average, ', average');
+                    this.maxValue = 0;
+                    this.minValue = Math.PI;
                     this.formScore.push(average);
                     this.elbowScore = 0;
                     this.kneeScore = 0;
@@ -137,7 +141,7 @@ export class Pushup implements IExercise {
                 }
             }
 
-            if (elbowAngle <= this.compareValue && elbowAngle <= Math.PI / 3) {
+            if (elbowAngle <= this.compareValue - 0.08) {
                 this.minValue = elbowAngle;
                 this.compareValue = elbowAngle;
                 this.pushUpCountValue += this.adder2;
@@ -152,6 +156,7 @@ export class Pushup implements IExercise {
                 }
 
                 // get the elbow score
+                console.log(this.maxValue, ', max value');
                 if (19 * Math.PI / 20 <= this.maxValue && this.maxValue <= 21 * Math.PI / 20) {
                     // add elbowScore/2 for when user reach the highest point and lowest point
                     this.elbowScore += 0.5;
@@ -170,6 +175,9 @@ export class Pushup implements IExercise {
                 if (this.elbowScore > 0.51) {
                     //cal the avg score
                     let average = (this.kneeScore + this.hipScore + this.elbowScore) / 3
+                    console.log(average, ', average');
+                    this.maxValue = 0;
+                    this.minValue = Math.PI;
                     this.formScore.push(average);
                     this.elbowScore = 0;
                     this.kneeScore = 0;
