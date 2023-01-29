@@ -1,5 +1,5 @@
 import type {AppProps} from 'next/app'
-import { AuthProvider } from '../hooks/useAuth';
+import {AuthProvider} from '../hooks/useAuth';
 import GlobalStyle from "../components/globalstyles";
 import Head from 'next/head';
 import styled, {DefaultTheme, ThemeProvider} from "styled-components";
@@ -28,11 +28,11 @@ const content = "Unlock the full potential of your fitness journey with our inno
 export default function App({Component, pageProps}: AppProps) {
     return <AuthProvider>
         <ThemeProvider theme={theme}>
-        <WebsiteInfo/>
-        <Container>
-            <Component {...pageProps} />
-        </Container>
-    </ThemeProvider>
+            <WebsiteInfo/>
+            <Container>
+                <Component {...pageProps} />
+            </Container>
+        </ThemeProvider>
     </AuthProvider>
 }
 
