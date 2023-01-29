@@ -5,20 +5,13 @@ import {useContext} from "react";
 export default function Controls() {
     const {user, setUser} = useContext(UserContext);
 
-    const endExercise = () => setUser({...user, currentExercise: null});
-
-    const nextExercise = () => {
-
-    }
-
-    const prevExercise = () => {
-
-    }
+    const endExercise = () => {
+        setUser({...user, currentExercise: null})
+        console.log(user);
+    };
 
     return <Container>
-        <Button onClick={prevExercise}>Previous</Button>
-        <Button onClick={endExercise}>End Workout</Button>
-        <Button onClick={nextExercise}>Next</Button>
+        <Button onClick={()=> endExercise()}>End Workout</Button>
     </Container>
 }
 

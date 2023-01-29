@@ -31,7 +31,7 @@ export const InitialUser: User = {
     totalCalories: 0,
     totalWorkouts: 0,
     ExercisesToComplete: 0,
-    Exercises: [new Pushup(), new Situp()],
+    Exercises: [new Pushup()],
     currentExercise: null,
     currentPose: null
 };

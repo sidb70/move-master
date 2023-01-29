@@ -2,7 +2,6 @@ import calculateAngle from "@/angle";
 import {IExercise} from "@/Typings/exercise";
 
 export class Pushup implements IExercise {
-    id = 0;
     name = "Pushup";
     description = "A push-up is an exercise that works the chest, shoulders, triceps, and core. To perform a push-up, start in a plank position with your hands placed slightly wider than shoulder-width apart and your body in a straight line from your head to your heels. Lower your body by bending your elbows and keeping them close to your body. Push back up to the starting position by straightening your arms. Repeat the movement for the desired number of repetitions. It's important to maintain a straight line through the body, avoid sagging in the middle or raising the hips too high, keep the neck and spine in a neutral position and avoid looking up or down."
     image = "Its a Image";
@@ -13,8 +12,7 @@ export class Pushup implements IExercise {
     muscles_secondary = "triceps";
     muscles_neutral = "shoulders";
     is_completed = false;
-    sets = 1;
-    reps=10;
+    reps = 0;
     weight = 0;
     difficulty = 1;
     badPose: string[] = [];
@@ -27,12 +25,12 @@ export class Pushup implements IExercise {
     minValue = 0;
     adder1 = 0.6;
     adder2 = 0.6;
-    pushUpCounter = 0;
     pushUpCountValue = 0;
     elbowScore = 0;
     formScore: number[] = [];
     kneeScore = 0;
     hipScore = 0;
+    totalElbowScore = 0;
 
     constructor() {
         this.solver = this.solver.bind(this);
@@ -45,15 +43,7 @@ export class Pushup implements IExercise {
         // print all those angles scores to console, if less than 0.5 then return
         const confidence_check = 0.7;
         if (currentPose[28].score < confidence_check || currentPose[26].score < confidence_check || currentPose[24].score < confidence_check || currentPose[12].score < confidence_check || currentPose[14].score < confidence_check || currentPose[16].score < confidence_check) {
-            this.badPose.push("Not enough data");
-            // console.log(
-            //     currentPose[28],
-            //     currentPose[26],
-            //     currentPose[24],
-            //     currentPose[12],
-            //     currentPose[14],
-            //     currentPose[16],
-            // )
+            // if(this.frameCounter % 10 === 0) this.badPose.push("Not enough data");
             return;
         }
 
@@ -105,17 +95,17 @@ export class Pushup implements IExercise {
                 this.adder1 = 0;
                 this.adder2 = 0.6;
                 if (this.pushUpCountValue >= 1) {
-                    this.pushUpCounter += 1;
-                    console.log("push up count: " + this.pushUpCounter);
+                    this.reps += 1;
+                    // console.log("push up count: " + this.reps);
                     this.pushUpCountValue = 0;
                 }
 
 
                 // get the elbow score
-                console.log(this.minValue, ', min value');
+                // console.log(this.minValue, ', min value');
                 if (0 <= this.minValue && this.minValue <= Math.PI / 5) {
                     // add elbowScore/2 for when user reach the highest point and lowest point
-                    this.elbowScore += 0.5;
+                    this.elbowScore += 0.48;
                 } else if (Math.PI / 5 <= this.minValue && this.minValue <= Math.PI / 4) {
                     this.elbowScore += 0.45;
                 } else if (Math.PI / 4 <= this.minValue && this.minValue <= 3 * Math.PI / 10) {
@@ -128,10 +118,9 @@ export class Pushup implements IExercise {
                 //when elbow Score > 0.51 which means it's bigger than the single value that's going to be store if user just
                 //reach the highest or lowest point, but smaller than those two compare. So when ever that if statement
                 // is met, that means the user finished a set.
-                if (this.elbowScore > 0.51) {
+                if (this.elbowScore > 0.49) {
                     //cal the avg score
-                    let average = (this.kneeScore + this.hipScore + this.elbowScore) / 3
-                    console.log(average, ', average');
+                    let average = (this.kneeScore + this.hipScore + this.elbowScore) / 3;
                     this.maxValue = 0;
                     this.minValue = Math.PI;
                     this.formScore.push(average);
@@ -148,18 +137,16 @@ export class Pushup implements IExercise {
                 this.adder2 = 0;
                 this.adder1 = 0.6;
                 if (this.pushUpCountValue >= 1) {
-                    this.pushUpCounter += 1;
-                    console.log("push up count: " + this.pushUpCounter);
+                    // console.log("push up count: " + this.reps);
                     this.pushUpCountValue = 0;
-                    console.log("PUSHUP!!!");
-                    console.log(this.pushUpCounter);
+                    // console.log(this.reps);
+                    this.reps += 1;
                 }
 
                 // get the elbow score
-                console.log(this.maxValue, ', max value');
                 if (19 * Math.PI / 20 <= this.maxValue && this.maxValue <= 21 * Math.PI / 20) {
                     // add elbowScore/2 for when user reach the highest point and lowest point
-                    this.elbowScore += 0.5;
+                    this.elbowScore += 0.48;
                 } else if (18 * Math.PI / 20 <= elbowAngle && elbowAngle <= 19 * Math.PI / 20) {
                     this.elbowScore += 0.45;
                 } else if (17 * Math.PI / 20 <= elbowAngle && elbowAngle <= 18 * Math.PI / 20) {
@@ -167,15 +154,18 @@ export class Pushup implements IExercise {
                 } else {
                     this.elbowScore += 0.25;
                 }
+                this.totalElbowScore+= this.elbowScore;
+                // console.log(this.totalElbowScore, ', total elbow score,', this.reps);
 
 
                 //when elbow Score > 0.51 which means it's bigger than the single value that's going to be store if user just
                 //reach the highest or lowest point, but smaller than those two compare. So when ever that if statement
                 // is met, that means the user finished a set.
-                if (this.elbowScore > 0.51) {
+                // console.log(this.elbowScore, ', elbow score');
+                if (this.elbowScore > 0.49) {
                     //cal the avg score
                     let average = (this.kneeScore + this.hipScore + this.elbowScore) / 3
-                    console.log(average, ', average');
+
                     this.maxValue = 0;
                     this.minValue = Math.PI;
                     this.formScore.push(average);

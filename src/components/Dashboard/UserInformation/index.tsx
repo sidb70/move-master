@@ -9,7 +9,6 @@ export default function UserInformation() {
         <Welcome>Welcome, {user.firstName}!</Welcome>
         <Stats>
             <Stat>Workout Streak: {user.workoutStreak}</Stat>
-            <Stat>Total Hours: {user.totalHours}</Stat>
             <Stat>Total Workouts: {user.totalWorkouts}</Stat>
             <Stat>Exercises Left: {user.ExercisesToComplete}</Stat>
         </Stats>

@@ -1,18 +1,21 @@
+import { UserContext } from "@/pages/_app";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import {UserContext} from "@/pages/_app";
-import {useContext} from "react";
 
 export default function ExerciseStats() {
     const {user} = useContext(UserContext);
+    const [stats, setStats] = useState({reps: 0, PB: 0});
+
+    useEffect(()=>{
+        const currentExerciseName = user.currentExercise!.name;
+        const ExerciseData = user.Exercises.find((exercise)=>exercise.name === currentExerciseName);
+        setStats({reps: ExerciseData!.reps, PB: ExerciseData!.PB})
+    },[user])
 
     return <Container>
         <Horizontal>
-            <Stat>Rep: {user.currentExercise!.reps}</Stat>
-            <Stat>Sets: {user.currentExercise!.sets}</Stat>
-        </Horizontal>
-        <Horizontal>
-            <Stat>Time: {user.currentExercise!.time}</Stat>
-            <Stat>PB: {user.currentExercise!.PB}</Stat>
+            <Stat>Rep: {stats.reps}</Stat>
+            <Stat>PB: {stats!.PB}</Stat>
         </Horizontal>
     </Container>
 }

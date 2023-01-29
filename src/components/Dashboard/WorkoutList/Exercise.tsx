@@ -28,7 +28,9 @@ export default function Exercise(exercise: IExercise) {
         }
     }
 
-    const loadExercise = () => setUser({...user, currentExercise: exercise});
+    const loadExercise = () => {
+        setUser({...user, currentExercise: exercise, workoutStreak: (user.workoutStreak || 0) + 1 });
+    }
 
     // load muscle groups into a string
     const muscleGroups = () => {
@@ -48,7 +50,6 @@ export default function Exercise(exercise: IExercise) {
         </Header>
         <Stats>
             <p>Reps: {exercise.reps}</p>
-            <p>Sets: {exercise.sets}</p>
             {exercise.weight != -1 && <p>Weight: {exercise.weight}</p>}
         </Stats>
         <Stats>
