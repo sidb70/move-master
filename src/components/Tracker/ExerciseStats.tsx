@@ -7,10 +7,14 @@ export default function ExerciseStats() {
     const [stats, setStats] = useState({reps: 0, PB: 0});
 
     useEffect(()=>{
-        const currentExerciseName = user.currentExercise!.name;
-        const ExerciseData = user.Exercises.find((exercise)=>exercise.name === currentExerciseName);
-        setStats({reps: ExerciseData!.reps, PB: ExerciseData!.PB})
-    },[user])
+        const interval = setInterval(()=>{
+            const currentExerciseName = user.currentExercise!.name;
+            const ExerciseData = user.Exercises.find((exercise)=>exercise.name === currentExerciseName);
+            setStats({reps: ExerciseData!.reps, PB: ExerciseData!.PB})
+        },250)
+
+        return ()=>clearInterval(interval);
+    },[])
 
     return <Container>
         <Horizontal>
