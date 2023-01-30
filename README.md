@@ -2,4 +2,5 @@
 
 Devin Dematto\
 Tony Lu\
-Niko Portillo
+Niko Portillo\
+Sid Bhattacharya
